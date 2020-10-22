@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t tsemkiw/react-test -f ./client/Dockerfile.dev .
+  - docker build -t tsemkiw/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true tsemkiw/react-test npm test
