@@ -1,0 +1,36 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t tsemkiw/react-test -f ./client/Dockerfile.dev .
+
+script:
+  - docker run -e CI=true tsemkiw/react-test npm test
+
+after_success:
+  - docker build -t tsemkiw/multi-client ./client
+  - docker build -t tsemkiw/multi-nginx ./nginx
+  - docker build -t tsemkiw/multi-server ./server
+  - docker build -t tsemkiw/multi-worker ./worker
+  # login to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # take those images and push them to docker hub
+  - docker push tsemkiw/multi-client
+  - docker push tsemkiw/multi-nginx
+  - docker push tsemkiw/multi-server
+  - docker push tsemkiw/multi-worker
+
+
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "us-east-2"
+#   app: "multi-docker"
+#   env: "DockerReact-env"
+#   bucket_name: "elasticbeanstalk-us-east-2-483979648937"
+#   buket_path: "multi-docker"
+#   on:
+#     branch: master
+#   access_key_id: "$AWS_ACCESS_KEY"
+#   secret_access_key: "$AWS_SECRET_KEY"
