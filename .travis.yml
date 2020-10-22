@@ -4,23 +4,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t tsemkiw/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t gumbas/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true tsemkiw/react-test npm test
+  - docker run -e CI=true gumbas/react-test npm test
 
 after_success:
-  - docker build -t tsemkiw/multi-client ./client
-  - docker build -t tsemkiw/multi-nginx ./nginx
-  - docker build -t tsemkiw/multi-server ./server
-  - docker build -t tsemkiw/multi-worker ./worker
+  - docker build -t gumbas/multi-client ./client
+  - docker build -t gumbas/multi-nginx ./nginx
+  - docker build -t gumbas/multi-server ./server
+  - docker build -t gumbas/multi-worker ./worker
   # login to docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # take those images and push them to docker hub
-  - docker push tsemkiw/multi-client
-  - docker push tsemkiw/multi-nginx
-  - docker push tsemkiw/multi-server
-  - docker push tsemkiw/multi-worker
+  - docker push gumbas/multi-client
+  - docker push gumbas/multi-nginx
+  - docker push gumbas/multi-server
+  - docker push gumbas/multi-worker
 
 
 # deploy:
