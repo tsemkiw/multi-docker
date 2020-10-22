@@ -17,10 +17,10 @@ after_success:
   # login to docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # take those images and push them to docker hub
-  - docker push gumbas/multi-client
-  - docker push gumbas/multi-nginx
-  - docker push gumbas/multi-server
-  - docker push gumbas/multi-worker
+  - docker push gumbas/multi-client:latest
+  - docker push gumbas/multi-nginx:latest
+  - docker push gumbas/multi-server:latest
+  - docker push gumbas/multi-worker:latest
 
 
 # deploy:
