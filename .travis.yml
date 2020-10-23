@@ -22,15 +22,14 @@ after_success:
   - docker push gumbas/multi-server:latest
   - docker push gumbas/multi-worker:latest
 
-
-# deploy:
-#   provider: elasticbeanstalk
-#   region: "us-east-2"
-#   app: "multi-docker"
-#   env: "DockerReact-env"
-#   bucket_name: "elasticbeanstalk-us-east-2-483979648937"
-#   buket_path: "multi-docker"
-#   on:
-#     branch: master
-#   access_key_id: "$AWS_ACCESS_KEY"
-#   secret_access_key: "$AWS_SECRET_KEY"
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-483979648937"
+  buket_path: "docker-multi"
+  on:
+    branch: master
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
